@@ -23,23 +23,23 @@
     }
 
     .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2rem;
+      column-count: 3;
+      column-gap: 2rem;
       max-width: 1200px;
       margin: 4rem auto;
       padding: 0 1rem;
     }
 
     .bubble {
-      break-inside: avoid;
-      margin-bottom: 2rem;
+      display: inline-block;
+      width: 100%;
       background-color: rgba(255, 255, 255, 0.05);
       color: #e0e0e0;
       border-radius: 1.75rem;
       padding: 1.5rem;
+      margin-bottom: 2rem;
       transition: transform 0.2s;
-      display: block;
+      box-sizing: border-box;
     }
 
     .bubble:hover {
@@ -58,7 +58,7 @@
       margin: 0.5rem 0;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1000px) {
       .grid-container {
         column-count: 2;
       }
@@ -68,14 +68,6 @@
       .grid-container {
         column-count: 1;
       }
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 4rem;
-      font-family: 'Courier New', Courier, monospace;
-      color: #f0f0f0;
-      font-size: 0.8rem;
     }
   </style>
 </head>
@@ -108,10 +100,6 @@
     </div>
   </div>
 
-  <footer>
-    website by Zoé Lévêque — no data collected, no cookies 🍪
-  </footer>
-
   <script>
     const container = document.getElementById("bubbleContainer");
     const bubbles = Array.from(container.getElementsByClassName("bubble"));
@@ -119,10 +107,14 @@
     bubbles.sort((a, b) => {
       const dateA = new Date(a.getAttribute("data-date"));
       const dateB = new Date(b.getAttribute("data-date"));
-      return dateB - dateA;
+      return dateB - dateA; // du plus récent au plus ancien
     });
 
     bubbles.forEach(bubble => container.appendChild(bubble));
   </script>
+
+  <footer style="text-align: center; margin-top: 4rem; font-family: 'Courier New', Courier, monospace; color: #f0f0f0; font-size: 0.8rem;">
+    website by Zoé Lévêque — no data collected, no cookies 🍪
+  </footer>
 </body>
 </html>
