@@ -23,16 +23,17 @@
     }
 
     .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 2rem;
       max-width: 1200px;
       margin: 4rem auto;
       padding: 0 1rem;
-      align-items: start; /* <-- permet aux bulles d’avoir leur propre hauteur */
     }
 
     .bubble {
+      width: 300px; /* ou 30% pour un peu de fluidité */
       background-color: rgba(255, 255, 255, 0.05);
       color: #e0e0e0;
       border-radius: 1.75rem;
