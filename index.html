@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Zoé's Website</title>
   <style>
     body {
@@ -24,7 +24,7 @@
 
     .grid-container {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
       max-width: 1200px;
       margin: 4rem auto;
@@ -37,19 +37,10 @@
       border-radius: 1.75rem;
       padding: 1.5rem;
       transition: transform 0.2s;
-      min-height: 100px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       box-sizing: border-box;
-    }
-
-    .bubble.medium {
-      min-height: 180px;
-    }
-
-    .bubble.large {
-      min-height: 250px;
     }
 
     .bubble:hover {
@@ -65,76 +56,44 @@
     .bubble img {
       width: 100%;
       border-radius: 1rem;
-      margin-top: 0.5rem;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-
-    .bubble p {
-      text-align: center;
-    }
-
-    @media (max-width: 900px) {
-      .grid-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .grid-container {
-        grid-template-columns: 1fr;
-      }
+      margin: 0.5rem 0;
     }
   </style>
 </head>
 <body>
   <div class="corner-name">Zoé's website</div>
 
-  <div class="grid-container" id="grid"></div>
+  <div class="grid-container" id="bubbleContainer">
+    <div class="bubble" data-date="2025-07-24">
+      <div class="date">Jul 24, 2025</div>
+      <img src="images/ferriswheel.jpg" alt="In Ferris Wheel - Yokohama">
+      <p>hazy vibe on top of Cosmo World</p>
+    </div>
+
+    <div class="bubble" data-date="2025-07-22">
+      <div class="date">Jul 22, 2025</div>
+      <img src="images/pocarisweat.jpg" alt="Pocari Sweat">
+      <p>Japan essential</p>
+    </div>
+
+    <div class="bubble" data-date="2025-07-20">
+      <div class="date">Jul 20, 2025</div>
+      <p>Japan</p>
+      <p>Let's start documenting life here.</p>
+    </div>
+  </div>
 
   <script>
-    const bubbles = [
-      {
-        date: "2025-07-24",
-        image: "images/ferriswheel.jpg",
-        alt: "In Ferris Wheel - Yokohama",
-        text: "hazy vibe on top of Cosmo World",
-        size: "large"
-      },
-      {
-        date: "2025-07-22",
-        image: "images/pocarisweat.jpg",
-        alt: "Pocari Sweat",
-        text: "Japan essential",
-        size: "large"
-      },
-      {
-        date: "2025-07-20",
-        image: null,
-        alt: "",
-        text: "Japan<br>Let's start documenting life here.",
-        size: "medium"
-      }
-    ];
+    const container = document.getElementById("bubbleContainer");
+    const bubbles = Array.from(container.getElementsByClassName("bubble"));
 
-    // Trier les bulles par date décroissante (plus récente en premier)
-    bubbles.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    const container = document.getElementById("grid");
-
-    bubbles.forEach(bubble => {
-      const div = document.createElement("div");
-      div.className = `bubble ${bubble.size}`;
-      div.innerHTML = `
-        <div class="date">${new Date(bubble.date).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric'
-        })}</div>
-        ${bubble.image ? `<img src="${bubble.image}" alt="${bubble.alt}">` : ""}
-        <p>${bubble.text}</p>
-      `;
-      container.appendChild(div);
+    bubbles.sort((a, b) => {
+      const dateA = new Date(a.getAttribute("data-date"));
+      const dateB = new Date(b.getAttribute("data-date"));
+      return dateB - dateA; // du plus récent au plus ancien
     });
+
+    bubbles.forEach(bubble => container.appendChild(bubble));
   </script>
 </body>
 </html>
