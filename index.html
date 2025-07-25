@@ -66,6 +66,11 @@
       width: 100%;
       border-radius: 1rem;
       margin-top: 0.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .bubble p {
+      text-align: center;
     }
 
     @media (max-width: 900px) {
@@ -84,22 +89,52 @@
 <body>
   <div class="corner-name">Zoé's website</div>
 
-  <div class="grid-container">
-    <div class="bubble">
-      <div class="date">July 21, 2025</div>
-      <p>[Write something here]</p>
-    </div>
+  <div class="grid-container" id="grid"></div>
 
-    <div class="bubble medium">
-      <div class="date">July 20, 2025</div>
-      <p>[Write something here]</p>
-    </div>
+  <script>
+    const bubbles = [
+      {
+        date: "2025-07-24",
+        image: "images/ferriswheel.jpg",
+        alt: "In Ferris Wheel - Yokohama",
+        text: "hazy vibe on top of Cosmo World",
+        size: "large"
+      },
+      {
+        date: "2025-07-22",
+        image: "images/pocarisweat.jpg",
+        alt: "Pocari Sweat",
+        text: "Japan essential",
+        size: "large"
+      },
+      {
+        date: "2025-07-20",
+        image: null,
+        alt: "",
+        text: "Japan<br>Let's start documenting life here.",
+        size: "medium"
+      }
+    ];
 
-    <div class="bubble large">
-      <div class="date">July 25, 2025</div>
-      <img src="images/pocarisweat.jpg" alt="Pocari Sweat">
-      <p>Japan essential</p>
-    </div>
-  </div>
+    // Trier les bulles par date décroissante (plus récente en premier)
+    bubbles.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    const container = document.getElementById("grid");
+
+    bubbles.forEach(bubble => {
+      const div = document.createElement("div");
+      div.className = `bubble ${bubble.size}`;
+      div.innerHTML = `
+        <div class="date">${new Date(bubble.date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        })}</div>
+        ${bubble.image ? `<img src="${bubble.image}" alt="${bubble.alt}">` : ""}
+        <p>${bubble.text}</p>
+      `;
+      container.appendChild(div);
+    });
+  </script>
 </body>
 </html>
