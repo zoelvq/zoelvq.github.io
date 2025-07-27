@@ -23,12 +23,19 @@
     }
 
     .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       max-width: 1200px;
       margin: 4rem auto;
       padding: 0 1rem;
+    }
+
+    .row {
+      display: flex;
+      gap: 2rem;
+      width: 100%;
+      margin-bottom: 2rem;
     }
 
     .bubble {
@@ -37,10 +44,8 @@
       border-radius: 1.75rem;
       padding: 1.5rem;
       transition: transform 0.2s;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-sizing: border-box;
+      flex: 1;
+      break-inside: avoid;
     }
 
     .bubble:hover {
@@ -66,42 +71,19 @@
       color: #f0f0f0;
       font-size: 0.8rem;
     }
+
+    @media (max-width: 1000px) {
+      .row {
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="corner-name">Zoé's website</div>
 
   <div class="grid-container" id="bubbleContainer">
-    <div class="bubble" data-date="2025-07-27">
-      <div class="date">Jul 27, 2025</div>
-      <p>-midnight-</p>
-      <img src="images/serving.jpg" alt="Late Wind">
-      <p>serving hill god</p>
-    </div>
-
-    <div class="bubble" data-date="2025-07-25">
-      <div class="date">Jul 25, 2025</div>
-      <iframe title="deezer-widget" src="https://widget.deezer.com/widget/auto/track/3401916651" width="100%" height="350" frameborder="0" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe>
-      <p>on repeat lately</p>
-    </div>
-
-    <div class="bubble" data-date="2025-07-24">
-      <div class="date">Jul 24, 2025</div>
-      <img src="images/ferriswheel.jpg" alt="In Ferris Wheel - Yokohama">
-      <p>hazy vibe on top of Cosmo World</p>
-    </div>
-
-    <div class="bubble" data-date="2025-07-22">
-      <div class="date">Jul 22, 2025</div>
-      <img src="images/pocarisweat.jpg" alt="Pocari Sweat">
-      <p>japan essential</p>
-    </div>
-
-    <div class="bubble" data-date="2025-07-20">
-      <div class="date">Jul 20, 2025</div>
-      <p>Japan</p>
-      <p>Let's start documenting life here.</p>
-    </div>
+    <!-- Rows will be inserted here by script -->
   </div>
 
   <footer>
@@ -110,15 +92,42 @@
 
   <script>
     const container = document.getElementById("bubbleContainer");
-    const bubbles = Array.from(container.getElementsByClassName("bubble"));
+    const rawBubbles = [
+      {
+        date: "2025-07-27",
+        html: `<div class="date">Jul 27, 2025</div><p>-midnight-</p><img src="images/serving.jpg" alt="Late Wind"><p>serving hill god</p>`
+      },
+      {
+        date: "2025-07-25",
+        html: `<div class="date">Jul 25, 2025</div><iframe title="deezer-widget" src="https://widget.deezer.com/widget/auto/track/3401916651" width="100%" height="350" frameborder="0" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe><p>on repeat lately</p>`
+      },
+      {
+        date: "2025-07-24",
+        html: `<div class="date">Jul 24, 2025</div><img src="images/ferriswheel.jpg" alt="In Ferris Wheel - Yokohama"><p>hazy vibe on top of Cosmo World</p>`
+      },
+      {
+        date: "2025-07-22",
+        html: `<div class="date">Jul 22, 2025</div><img src="images/pocarisweat.jpg" alt="Pocari Sweat"><p>Japan essential</p>`
+      },
+      {
+        date: "2025-07-20",
+        html: `<div class="date">Jul 20, 2025</div><p>Japan</p><p>Let's start documenting life here.</p>`
+      }
+    ];
 
-    bubbles.sort((a, b) => {
-      const dateA = new Date(a.getAttribute("data-date"));
-      const dateB = new Date(b.getAttribute("data-date"));
-      return dateB - dateA;
-    });
+    rawBubbles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    bubbles.forEach(bubble => container.appendChild(bubble));
+    for (let i = 0; i < rawBubbles.length; i += 3) {
+      const row = document.createElement('div');
+      row.className = 'row';
+      rawBubbles.slice(i, i + 3).forEach(b => {
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        bubble.innerHTML = b.html;
+        row.appendChild(bubble);
+      });
+      container.appendChild(row);
+    }
   </script>
 </body>
 </html>
