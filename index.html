@@ -23,6 +23,9 @@
     }
 
     .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
       max-width: 1200px;
       margin: 4rem auto;
     }
@@ -33,7 +36,6 @@
       border-radius: 1.75rem;
       padding: 1.5rem;
       transition: transform 0.2s;
-      margin-bottom: 2rem;
     }
 
     .bubble:hover {
@@ -67,8 +69,8 @@
   <div class="grid-container" id="bubbleContainer">
     <div class="bubble" data-date="2025-07-27">
       <div class="date">Jul 27, 2025</div>
-      <p>-midnight-</p>
       <img src="images/serving.jpg" alt="Late Wind">
+      <p>-midnight-</p>
       <p>serving hill god</p>
     </div>
 
@@ -92,7 +94,7 @@
 
     <div class="bubble" data-date="2025-07-20">
       <div class="date">Jul 20, 2025</div>
-      <p>japan</p>
+      <p>Japan</p>
       <p>Let's start documenting life here.</p>
     </div>
   </div>
@@ -101,7 +103,6 @@
     website by Zoé Lévêque — no data collected, no cookies 🍪
   </footer>
 
-  <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
   <script>
     const container = document.getElementById("bubbleContainer");
     const bubbles = Array.from(container.getElementsByClassName("bubble"));
@@ -113,13 +114,7 @@
     });
 
     bubbles.forEach(bubble => container.appendChild(bubble));
-
-    new Masonry(container, {
-      itemSelector: '.bubble',
-      columnWidth: '.bubble',
-      percentPosition: true,
-      gutter: 20
-    });
   </script>
 </body>
 </html>
+
