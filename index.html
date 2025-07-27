@@ -23,9 +23,8 @@
     }
 
     .grid-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-start;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 2rem;
       max-width: 1200px;
       margin: 4rem auto;
@@ -33,17 +32,12 @@
     }
 
     .bubble {
-      flex: 1 1 300px;
-      max-width: 300px;
       background-color: rgba(255, 255, 255, 0.05);
       color: #e0e0e0;
       border-radius: 1.75rem;
       padding: 1.5rem;
       transition: transform 0.2s;
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 2rem;
-      box-sizing: border-box;
+      display: block;
     }
 
     .bubble:hover {
@@ -77,11 +71,11 @@
   <div class="grid-container" id="bubbleContainer">
     <div class="bubble" data-date="2025-07-27">
       <div class="date">Jul 27, 2025</div>
-      <p>-midnight-</p>
       <img src="images/serving.jpg" alt="Late Wind">
+      <p>-midnight-</p>
       <p>serving hill god</p>
     </div>
-    
+
     <div class="bubble" data-date="2025-07-25">
       <div class="date">Jul 25, 2025</div>
       <iframe title="deezer-widget" src="https://widget.deezer.com/widget/auto/track/3401916651" width="100%" height="350" frameborder="0" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe>
@@ -97,7 +91,7 @@
     <div class="bubble" data-date="2025-07-22">
       <div class="date">Jul 22, 2025</div>
       <img src="images/pocarisweat.jpg" alt="Pocari Sweat">
-      <p>japan essential</p>
+      <p>Japan essential</p>
     </div>
 
     <div class="bubble" data-date="2025-07-20">
