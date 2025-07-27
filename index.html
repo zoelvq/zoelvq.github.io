@@ -2,12 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Zoé's Website</title>
-
-  <!-- Masonry CDN -->
-  <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-
   <style>
     body {
       margin: 0;
@@ -26,15 +22,9 @@
       z-index: 10;
     }
 
-    .grid {
+    .grid-container {
       max-width: 1200px;
       margin: 4rem auto;
-    }
-
-    .grid-sizer,
-    .bubble {
-      width: 30%;
-      margin-bottom: 2rem;
     }
 
     .bubble {
@@ -43,8 +33,7 @@
       border-radius: 1.75rem;
       padding: 1.5rem;
       transition: transform 0.2s;
-      display: inline-block;
-      box-sizing: border-box;
+      margin-bottom: 2rem;
     }
 
     .bubble:hover {
@@ -57,24 +46,10 @@
       margin-bottom: 0.5rem;
     }
 
-    .bubble img {
+    .bubble img, .bubble iframe {
       width: 100%;
       border-radius: 1rem;
       margin: 0.5rem 0;
-    }
-
-    @media (max-width: 900px) {
-      .grid-sizer,
-      .bubble {
-        width: 45%;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .grid-sizer,
-      .bubble {
-        width: 100%;
-      }
     }
 
     footer {
@@ -89,9 +64,7 @@
 <body>
   <div class="corner-name">Zoé's website</div>
 
-  <div class="grid" id="bubbleContainer">
-    <div class="grid-sizer"></div>
-
+  <div class="grid-container" id="bubbleContainer">
     <div class="bubble" data-date="2025-07-27">
       <div class="date">Jul 27, 2025</div>
       <p>-midnight-</p>
@@ -114,12 +87,12 @@
     <div class="bubble" data-date="2025-07-22">
       <div class="date">Jul 22, 2025</div>
       <img src="images/pocarisweat.jpg" alt="Pocari Sweat">
-      <p>japan essential</p>
+      <p>Japan essential</p>
     </div>
 
     <div class="bubble" data-date="2025-07-20">
       <div class="date">Jul 20, 2025</div>
-      <p>Japan</p>
+      <p>japan</p>
       <p>Let's start documenting life here.</p>
     </div>
   </div>
@@ -128,28 +101,24 @@
     website by Zoé Lévêque — no data collected, no cookies 🍪
   </footer>
 
+  <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
   <script>
     const container = document.getElementById("bubbleContainer");
     const bubbles = Array.from(container.getElementsByClassName("bubble"));
 
-    // Trie des bulles par date
     bubbles.sort((a, b) => {
       const dateA = new Date(a.getAttribute("data-date"));
       const dateB = new Date(b.getAttribute("data-date"));
       return dateB - dateA;
     });
 
-    // Réinitialise et réinsère les bulles triées
-    const sizer = document.querySelector(".grid-sizer");
-    container.innerHTML = "";
-    container.appendChild(sizer);
     bubbles.forEach(bubble => container.appendChild(bubble));
 
-    // Initialise Masonry
     new Masonry(container, {
       itemSelector: '.bubble',
-      columnWidth: '.grid-sizer',
-      percentPosition: true
+      columnWidth: '.bubble',
+      percentPosition: true,
+      gutter: 20
     });
   </script>
 </body>
