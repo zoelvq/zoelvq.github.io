@@ -23,22 +23,27 @@
     }
 
     .grid-container {
-      column-count: 3;
-      column-gap: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 2rem;
       max-width: 1200px;
       margin: 4rem auto;
       padding: 0 1rem;
     }
 
     .bubble {
-      break-inside: avoid;
-      margin-bottom: 2rem;
+      flex: 1 1 300px;
+      max-width: 300px;
       background-color: rgba(255, 255, 255, 0.05);
       color: #e0e0e0;
       border-radius: 1.75rem;
       padding: 1.5rem;
       transition: transform 0.2s;
-      display: block;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 2rem;
+      box-sizing: border-box;
     }
 
     .bubble:hover {
@@ -57,18 +62,6 @@
       margin: 0.5rem 0;
     }
 
-    @media (max-width: 900px) {
-      .grid-container {
-        column-count: 2;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .grid-container {
-        column-count: 1;
-      }
-    }
-
     footer {
       text-align: center;
       margin-top: 4rem;
@@ -84,8 +77,8 @@
   <div class="grid-container" id="bubbleContainer">
     <div class="bubble" data-date="2025-07-27">
       <div class="date">Jul 27, 2025</div>
-      <img src="images/serving.jpg" alt="Late Wind">
       <p>-midnight-</p>
+      <img src="images/serving.jpg" alt="Late Wind">
       <p>serving hill god</p>
     </div>
     
