@@ -23,9 +23,8 @@
     }
 
     .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 2rem;
+      column-count: 3;
+      column-gap: 2rem;
       max-width: 1200px;
       margin: 4rem auto;
     }
@@ -36,6 +35,9 @@
       border-radius: 1.75rem;
       padding: 1.5rem;
       transition: transform 0.2s;
+      margin-bottom: 2rem;
+      display: inline-block;
+      width: 100%;
     }
 
     .bubble:hover {
@@ -61,6 +63,18 @@
       color: #f0f0f0;
       font-size: 0.8rem;
     }
+
+    @media (max-width: 1000px) {
+      .grid-container {
+        column-count: 2;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .grid-container {
+        column-count: 1;
+      }
+    }
   </style>
 </head>
 <body>
@@ -69,8 +83,8 @@
   <div class="grid-container" id="bubbleContainer">
     <div class="bubble" data-date="2025-07-27">
       <div class="date">Jul 27, 2025</div>
-      <img src="images/serving.jpg" alt="Late Wind">
       <p>-midnight-</p>
+      <img src="images/serving.jpg" alt="Late Wind">
       <p>serving hill god</p>
     </div>
 
@@ -89,7 +103,7 @@
     <div class="bubble" data-date="2025-07-22">
       <div class="date">Jul 22, 2025</div>
       <img src="images/pocarisweat.jpg" alt="Pocari Sweat">
-      <p>Japan essential</p>
+      <p>japan essential</p>
     </div>
 
     <div class="bubble" data-date="2025-07-20">
@@ -117,4 +131,3 @@
   </script>
 </body>
 </html>
-
