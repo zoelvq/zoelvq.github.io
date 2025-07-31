@@ -24,18 +24,12 @@
 
     .grid-container {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: flex-start;
       max-width: 1200px;
       margin: 4rem auto;
       padding: 0 1rem;
-    }
-
-    .row {
-      display: flex;
-      gap: 2rem;
-      width: 100%;
-      margin-bottom: 2rem;
     }
 
     .bubble {
@@ -44,8 +38,8 @@
       border-radius: 1.75rem;
       padding: 1.5rem;
       transition: transform 0.2s;
-      flex: 1;
-      break-inside: avoid;
+      width: 300px;
+      box-sizing: border-box;
     }
 
     .bubble:hover {
@@ -73,8 +67,8 @@
     }
 
     @media (max-width: 1000px) {
-      .row {
-        flex-direction: column;
+      .bubble {
+        width: 100%;
       }
     }
   </style>
@@ -82,9 +76,7 @@
 <body>
   <div class="corner-name">Zoé's website</div>
 
-  <div class="grid-container" id="bubbleContainer">
-    <!-- Rows will be inserted here by script -->
-  </div>
+  <div class="grid-container" id="bubbleContainer"></div>
 
   <footer>
     website by Zoé Lévêque — no data collected, no cookies 🍪
@@ -119,19 +111,12 @@
       }
     ];
 
-    rawBubbles.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    for (let i = 0; i < rawBubbles.length; i += 3) {
-      const row = document.createElement('div');
-      row.className = 'row';
-      rawBubbles.slice(i, i + 3).forEach(b => {
-        const bubble = document.createElement('div');
-        bubble.className = 'bubble';
-        bubble.innerHTML = b.html;
-        row.appendChild(bubble);
-      });
-      container.appendChild(row);
-    }
+    rawBubbles.forEach(b => {
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      bubble.innerHTML = b.html;
+      container.appendChild(bubble);
+    });
   </script>
 </body>
 </html>
